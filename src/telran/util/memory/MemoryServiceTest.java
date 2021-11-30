@@ -1,5 +1,5 @@
 package telran.util.memory;
-//HW_15 Ilya_L
+//HW_17 Ilya_L
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MemoryServiceTest {
-byte ar[];
+	byte array[];
+	final long MG = 1024 * 1024;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 	}
@@ -15,17 +17,16 @@ byte ar[];
 	@Test
 	void test() {
 		int maxSize = MemoryService.getMaxAvailableMemory();
-		ar = new byte[maxSize]; //normal allocation
-		ar = null;
-		boolean fl = false;
-	try {
-		ar = new byte[maxSize + 1]; //exception
-			
+		array = new byte[maxSize]; //normal allocation
+		array = null;
+		boolean gotException = false;
+		try {
+			array = new byte[maxSize + 1]; //exception	
+			array = null;
 		} catch (Throwable e) {
-			fl = true;
+			gotException = true;
 		}
-	assertTrue(fl);
-		
+		assertTrue(gotException);		
+		System.out.printf("  Max size=%dM", maxSize/MG);
 	}
-
 }
